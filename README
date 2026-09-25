@@ -1,0 +1,252 @@
+CSCE 1030- Project 1
+Due: 10/02/2026 11.59 PM
+Project Introduction
+In this project, you will develop a complete, menu-driven Python application designed to
+manage academic records, calculate GPAs, render formatted rosters, search student
+profiles, and analyze institutional performance metrics.
+Many real-world software applications—from legacy administrative systems to modern
+terminal tools—rely on a central console loop to manage state in memory, manipulate data
+structures, and execute user requests. This assignment serves as a comprehensive bridge
+across Chapters 1 through 5, challenging you to apply core programming logic, structured
+data handling, and input validation.
+Your goal is to submit a fully functional, bug-free Python application that strictly adheres to
+the technical constraints and functional specifications detailed below.
+Project Requirements
+1. Architectural & Language Constraints
+To ensure all students demonstrate mastery of core control structures, your submission
+must comply with the following structural rules:
+• No Custom Functions (def Keyword Banned): You must NOT write custom
+functions (def). All application logic—including menu navigation, calculations,
+searches, and data manipulation—must exist inline within the main execution script
+and its nested control structures.
+• Persistent Execution Loop: The entire application must run inside a top-level while
+loop driven by a state variable (e.g., system_active = True). The program must
+continue running and returning the user to the main menu until option 0 is selected.
+• Pre-Seeded Data Storage: To allow immediate testing without requiring manual
+data entry on every launch, your program must initialize with pre-populated
+collections containing at least 5 students.
+• Pause-on-Return UX: At the end of every menu execution (options 1–5), the
+program must pause using input("\nPress Enter to return to Main Menu...") before re-
+displaying the main menu.
+2. Comprehensive Data Structure Schema
+Your program must initialize and persistently maintain four distinct data collection types
+throughout the session:
+Collection Variable
+Data
+Structure
+Type
+Structural Description
+& Purpose
+Example
+Initial Value
+student_ids List of
+Integers
+Parallel tracking array
+containing unique 4-digit
+student identification
+numbers.
+[1001, 1002,
+1003, 1004,
+1005]
+student_names List of
+Strings
+Parallel tracking array
+containing full student
+names aligned by index
+with student_ids.
+["Alex Mercer",
+"Jordan Lee",
+...]
+student_grades Dictionary
+Maps integer Student
+IDs (key) to a List of
+floats (value)
+representing numerical
+test scores.
+{1001: [88.5,
+92.0, 79.0,
+95.5], ...}
+student_gpas Dictionary
+Maps integer Student
+IDs (key) to calculated
+float GPAs (value).
+Updated via Option 2.
+{1001: 3.0,
+1002: 2.0, ...}
+enrolled_courses Set of
+Strings
+Stores unique course
+codes across the
+system. Ensures
+duplicate courses are
+automatically merged.
+{"CS101",
+"MATH201",
+"ENG102"}
+Collection Variable
+Data
+Structure
+Type
+Structural Description
+& Purpose
+Example
+Initial Value
+GRADE_BOUNDARIES Tuple of
+Floats
+Immutable lookup
+sequence for letter
+grade cutoffs.
+(90.0, 80.0,
+70.0, 60.0)
+GRADE_LETTERS Tuple of
+Strings
+Immutable lookup
+sequence for letter
+grade designations
+aligned with boundaries.
+('A', 'B', 'C', 'D',
+'F')
+3. Step-by-Step Menu Specifications
+Your application menu must accept options '0' through '5'. Any input outside this range
+must trigger an explicit error message ("[ERROR] Invalid choice...") without crashing the
+application.
+Menu Option 1: Input & Record Student Grades
+1. ID Validation: Prompt for a 4-digit Student ID. Verify using .isdigit() and len() == 4. If
+invalid, display a notification and exit back to the menu loop.
+2. Name & Course Entry: Prompt for the student's full name. Prompt for a course
+code, convert it to uppercase using .upper(), and add it to the enrolled_courses set.
+3. Score Collection Loop: Ask how many assignment scores will be entered. Use a for
+loop to prompt for each float score (0.0 – 100.0) and append them into a temporary
+list.
+4. State Update: If the ID is new, append it to student_ids and append the name to
+student_names. Store or overwrite the grade list in student_grades[new_id]. Print a
+confirmation message.
+Menu Option 2: Compute GPAs & Academic Averages
+1. Empty Check: Verify that student_grades contains data. If empty, notify the user.
+2. Average Calculation: Loop through student_grades.items(). For each student,
+compute sum(grades) / len(grades).
+3. 4.0 Scale Mapping: Convert the numerical average to a standard 4.0 scale using
+conditional branching:
+o 90.0 or higher → 4.0
+o 80.0 to 89.9 → 3.0
+o 70.0 to 79.9 → 2.0
+o 60.0 to 69.9 → 1.0
+o Below 60.0 → 0.0
+4. Letter Grade Evaluation: Use a for loop with enumerate() across
+GRADE_BOUNDARIES to match the numeric average to its letter grade in
+GRADE_LETTERS.
+5. Persistence: Update student_gpas[sid] = gpa and output line item summaries for
+each student formatted as: ID: 1001 | Avg Score: 88.8% | Letter: B | GPA: 3.0.
+Menu Option 3: Display Formatted Grade Roster
+1. Custom Aesthetics: Prompt the user to input a single border character (e.g., #, *, =).
+Default to * if the user hits Enter without typing.
+2. Table Header: Construct a centered ASCII header using string repetition and center
+alignment (:^63).
+3. Row Formatting: Iterate through student_ids using enumerate(student_ids).
+Retrieve the corresponding name and GPA (student_gpas.get(sid, 0.0)).
+4. Status Evaluation: Assign academic standing based on GPA:
+o GPA 3.5 or higher → "Dean's List"
+o GPA 2.0 to 3.4 → "Good Standing"
+o GPA below 2.0 → "Probation Risk"
+5. Tuple Packaging & Printing: Pack row items into a Tuple: (index + 1, sid, name, gpa,
+status). Print each formatted line using precise width specifiers (e.g.,
+{student_tuple[2]:<16}).
+Menu Option 4: Search Student & Flag Academic Risk
+1. Search Input: Prompt for a Student ID to look up (cast to int).
+2. Linear Search Loop: Implement a manual lookup loop: for i in
+range(len(student_ids)): to locate the target ID.
+3. Record Inspection: If found, extract their name, grade list, and GPA. Display all
+details.
+4. Risk Classification: Apply logic to print an intervention flag:
+o GPA below 2.0 → "[AT RISK] Student is on Academic Probation."
+o GPA 3.5 or higher → "[EXCELLENT] Student made Honor Roll."
+o Otherwise → "[NORMAL] Student is in Good Standing."
+5. Not Found Handling: If the search loop finishes without a match, output "[NOTICE]
+Student ID not found in system records.".
+Menu Option 5: Class Statistics & High/Low Analysis
+1. Data Aggregation: Initialize an empty master list all_scores = [].
+2. Nested Unpacking Loop: Use nested for loops to iterate through every student's
+score list and append every individual grade into all_scores:
+Python
+for sid, grades_list in student_grades.items():
+for score in grades_list:
+all_scores.append(score)
+3. Statistical Analysis: Calculate:
+o Total individual grades recorded (len(all_scores))
+o Highest single score across all assignments (max(all_scores))
+o Lowest single score across all assignments (min(all_scores))
+o Overall class score average (sum(all_scores) / len(all_scores))
+4. Summary Display: Print a formatted breakdown block with numbers formatted to 1
+decimal place.
+Menu Option 0: Exit Portal
+• Set the control flag system_active = False, print a logout confirmation, and let the
+script end cleanly.
+Student Project Submission & Working Instructions
+Academic Integrity Policy (Zero Tolerance)
+• No External Help & No AI: This project must be 100% your team’s original work. The
+use of generative AI tools (such as ChatGPT, Claude, GitHub Copilot, or similar
+models), online code generators, contract coders, or external tutoring assistance is
+strictly prohibited.
+• Penalty: Any instance of cheating, plagiarizing code from external sources, or using
+AI tools will result in an immediate grade of F for the entire course and will be
+reported to the office of Academic Integrity.
+• Oral Verification: TAs reserve the right to conduct random oral code reviews with
+any student or group to verify full comprehension of the submitted code. If a student
+cannot explain their implementation line-by-line, it will be flagged as an academic
+integrity violation.
+Project Execution & Server Environment
+• Target Environment: You are free to use any platform, IDE, or operating system to
+write your code (e.g., VS Code, PyCharm, IDLE, Mac, Windows, Linux). However,
+ultimately your project will be compiled and tested on our official course
+servers running Python 3. You are responsible for making sure your code runs
+cleanly in that server environment without requiring local modifications.
+• File Naming Convention: Name your Python submission file using the lead
+submitter's Full Name, EUID, and Project 1:
+o File Name Format: Firstname_Lastname_EUID_Project1.py
+o Example: John_Doe_abc0123_Project1.py
+• Execution Command: TAs will test and run your submission directly from the server
+command line. Ensure your program executes cleanly using:
+• External Libraries: Do not import external third-party packages (such as pandas,
+numpy, or tabulate). Rely exclusively on Python’s standard library to ensure
+compatibility with the server environment.
+• Server Setup & Video Guide: I will post a video tutorial showing step-by-step how
+to create your project, transfer your files, and test your code on the course server
+before submitting. Watch this video and make sure your code runs on the server
+well ahead of the deadline.
+Group Formation & Collaboration Guidelines
+• Group Size: You may complete this project individually or in a group of up to 4
+students (1 to 4 members total).
+• Lab Section Requirement: All members of a project team must be enrolled in the
+exact same lab section. Cross-lab section groups are strictly prohibited.
+• Group Flexibility: You are not locked into the same team for the entire semester—
+you are free to change group members for future projects if you wish.
+• Code Header & Contribution Overview (No Email Needed): You do not need to
+email me your group details. If working in a group, use the submitter's information
+for the file name, and include the full details of all team members along with a brief
+overview of who worked on what inside the header docstring comment at the very
+top of your script:
+Code Header Example
+"""
+================================================================
+Course: CSCE 1030
+Assignment: Project 1 - Student Grade Management System
+Lab Section: [Insert Section Number, e.g., CSCE 1030.344]
+Team Members (Up to 4 total):
+1. John Doe (EUID: abc0123) - Submitter
+2. Jane Smith (EUID: def0456)
+3. Alex Johnson (EUID: ghi0789)
+4. Sam Taylor (EUID: jkl0112)
+Contribution Overview:
+- John Doe: Designed data structure, main menu driver loop
+(Options 1 & 5).
+- Jane Smith: Implemented Add Student feature & validation
+logic (Option 2).
+- Alex Johnson: Implemented Search & Update grade
+functionalities (Option 3).
+- Sam Taylor: Built Class Analytics, grade distribution, & at-
+risk flags (Option 4).
+================================================================
+"""
+• Submission Protocol: Only one member (the submitter) needs to upload the .py
+file to the assignment portal. All members listed in the file header will receive the
+same base score.
