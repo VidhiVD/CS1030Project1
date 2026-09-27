@@ -12,10 +12,11 @@ while True:
     print("\n===== MENU OPTIONS =====")
     print("Choose a menu option(0-5): \n1. Input & Record Student Grades\n2. Compute GPAs & Academic Averages\n3. Display Formatted Grade Roster\n4. Search Student & Flag Academic Risk\n5. Class Statistics & High/Low Analysis\n0. Exit")
     choice = input("Enter Your Option: ")
+#option 1
     if choice == "1":
         student_id_entered = int(input("Enter 4-digit Student ID: "))
         if student_id_entered in student_ids and str(student_id_entered).isdigit() and len(str(student_id_entered)) == 4:
-            student_name = input("Enter Student Full Name: ").upper
+            student_name = input("Enter Student Full Name: ").upper()
             if student_name == student_names[student_id_entered]:
                 print(f"Student Name: {student_name}")
                 print("Courses in Catalog:", course_in_catalog)
@@ -41,9 +42,10 @@ while True:
         elif student_id_entered not in student_ids and str(student_id_entered).isdigit() and len(str(student_id_entered)) == 4:
             new_id_question = input("Student ID not found. Would you like to add a new student? (yes/no): ").strip().lower()
             if new_id_question == "yes" or new_id_question == "y":
-                student_ids.append(int(input("Enter new 4-digit Student ID: ")))
-                student_names[student_id_entered].append(input("Enter Student Full Name: ").upper())
-                print(f"New student added: {student_names[student_ids[-1]][-1]} (ID: {student_ids[-1]})")
+                student_id_entered = int(input("Enter new 4-digit Student ID: "))
+                student_ids.append(student_id_entered)
+                student_names[student_id_entered] = input("Enter Student Full Name: ").upper()
+                print(f"New student added: {student_names[student_id_entered]} (ID: {student_ids[-1]})")
                 input("\nPress Enter to return to Main Menu...")
             else:
                 input("\nPress Enter to return to Main Menu...")
@@ -51,6 +53,7 @@ while True:
         else:
             print("\nInvalid student ID, must be a 4-digit number.")
             input("\nPress Enter to return to Main Menu...")
+#option 2
     elif choice == "2":
         print("You selected option 2.") 
         # Add functionality for option 2 here
