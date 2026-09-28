@@ -8,6 +8,13 @@ student_grades = {
     1004: [55.0, 62.0, 48.0, 59.5],
     1005: [84.0, 87.5, 89.0, 82.0]
 }
+student_gpas = {
+    1001: 3.0,
+    1002: 1.0,
+    1003: 4.0,
+    1004: 0.0,
+    1005: 3.0
+}
 enrolled_courses = {"CS101", "MATH201", "ENG102", "CSCE1030"}
 
 GRADE_BOUNDARIES = (90.0, 80.0, 70.0, 60.0)
@@ -183,3 +190,31 @@ while system_active:
                 print(f"[NOTICE] Student ID {target_id} not found in system records.")
                 
         input("\nPress Enter to return to Main Menu...")
+    elif choice == '5':
+        all_scores = []
+        for sid, grades_list in student_grades.items():
+            for score in grades_list:
+                all_scores.append(score)
+        if len(all_scores) == 0:
+            print("[NOTICE] No scores registered in the system to calculate metrics.")
+        else:
+            total_grades = len(all_scores)
+            highest_score = max(all_scores)
+            lowest_score = min(all_scores)
+            class_average = sum(all_scores)/total_grades
+        print("===================================================")
+        print("          INSTITUTIONAL PERFORMANCE METRICS        ")
+        print("===================================================")
+        print(f" Total Graded Assignments Tracked : {total_grades}")
+        print(f" Maximum Grade Score    : {highest_score:.1f}%")
+        print(f" Minimum Grade Score    : {lowest_score:.1f}%")
+        print(f" Global Class Average  : {class_average:.1f}%")
+        print("===================================================")
+        print(f" Courses Included : {sorted(list(enrolled_courses))}")
+        print("===================================================")
+        input("\nPress Enter to return to Main Menu...")
+
+# Option 0 Code:
+    elif choice == '0':
+        system_active = False
+        print("\nLogging out of portal -- Session terminated")
