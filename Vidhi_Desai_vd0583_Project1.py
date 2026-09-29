@@ -2,15 +2,14 @@
 ================================================================
 Course: CSCE 1030
 Assignment: Project 1 - Student Grade Management System
-Lab Section: CSCE 1030. 
-Team Members (Up to 4 total):
+Lab Section: CSCE 1030.341
+Team Members:
 1. Vidhi Desai (EUID: vd0583) - Submitter
-2. Jane Smith (EUID: def0456)
+2. Minh DO (EUID: mtd0129)
 Contribution Overview:
-- Vidhi Desai : Designed data structures and implemented options
-- Jane Smith: Implemented Add Student feature & validation
-logic (Option 2).
-
+- Vidhi Desai : Designed overall data structures and implemented options 0, and 2-5
+- Minh Do: Implemented option 1 and tested program
+Github For Version Control: https://github.com/VidhiVD/CS1030Project1
 ================================================================
 """
 student_ids = [1001, 1002, 1003, 1004, 1005]
