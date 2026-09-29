@@ -80,7 +80,7 @@ while system_active:
                         student_names[idx] = name
                     
                     student_grades[sid] = temp_scores
-                    print(f"\n[SUCCESS] Records updated successfully for {name} (ID: {sid}).")
+                    print(f"\n[SUCCESS] Records updated for {name} (ID: {sid}).")
                     
         input("\nPress Enter to return to Main Menu...")
 #Option 2 
@@ -117,7 +117,7 @@ while system_active:
                 student_gpas[sid] = gpa
                 print(f"ID: {sid} | Avg Score: {avg_score:.1f}% | Letter: {letter_grade} | GPA: {gpa:.1f}")
                 
-            print("\n[SUCCESS] GPAs and academic averages processed completely.")
+            print("\n[SUCCESS]")
             
         input("\nPress Enter to return to Main Menu...")
 
