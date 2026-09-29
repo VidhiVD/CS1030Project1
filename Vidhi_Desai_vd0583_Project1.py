@@ -1,4 +1,18 @@
-#Code for Project 1 CS 1030
+"""
+================================================================
+Course: CSCE 1030
+Assignment: Project 1 - Student Grade Management System
+Lab Section: CSCE 1030. 
+Team Members (Up to 4 total):
+1. Vidhi Desai (EUID: vd0583) - Submitter
+2. Jane Smith (EUID: def0456)
+Contribution Overview:
+- Vidhi Desai : Designed data structures and implemented options
+- Jane Smith: Implemented Add Student feature & validation
+logic (Option 2).
+
+================================================================
+"""
 student_ids = [1001, 1002, 1003, 1004, 1005]
 student_names = ["Alex Mercer", "Jordan Lee", "Taylor Smith", "Morgan Grimes", "Casey Jones"]
 student_grades = {
