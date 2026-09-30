@@ -93,6 +93,20 @@ while system_active:
                         student_names[idx] = name
                     
                     student_grades[sid] = temp_scores
+                    avg_score = sum(temp_scores) / len(temp_scores)
+
+                    if avg_score >= 90.0:
+                        gpa = 4.0
+                    elif avg_score >= 80.0:
+                        gpa = 3.0
+                    elif avg_score >= 70.0:
+                        gpa = 2.0
+                    elif avg_score >= 60.0:
+                        gpa = 1.0
+                    else:
+                        gpa = 0.0
+
+                    student_gpas[sid] = gpa
                     print(f"\n[SUCCESS] Records updated for {name} (ID: {sid}).")
                     
         input("\nPress Enter to return to Main Menu...")
